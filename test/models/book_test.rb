@@ -42,9 +42,12 @@ class BookTest < ActiveSupport::TestCase
     assert results.size == 1
   end
 
+  test "image url exists but is not saved" do
+    book = Book.new(title: 'Berta Isla', author: 'Javier Marias', image_url: 'TEST')
+    book.save
+    assert book.image_url == 'TEST'
 
-
-  # test "the truth" do
-  #   assert true
-  # end
+    results = Book.status('UNREAD')
+    assert_nil results[0].image_url
+  end
 end
