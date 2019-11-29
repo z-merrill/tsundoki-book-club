@@ -1,5 +1,7 @@
 class Book < ApplicationRecord
     before_save :default_values
+    validates :title, presence: true
+    validates :author, presence: true
 
     attr_accessor :image_url
 
