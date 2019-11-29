@@ -21,6 +21,22 @@ class BooksController < ApplicationController
     @current_book = Book.status('READING')
   end
 
+  # GET /books/search
+  # GET /books/search.json 
+  def search
+    response = RestClient.get('https://www.goodreads.com/search/index.xml?key=WxmoyITXL7QsiJuw0EQ&q=' + params[:q])
+    xml = Nokogiri::XML(response)
+    books =  xml.xpath('//search//results//work//best_book')
+    @results = []
+    books.each do | book |
+      result = Book.new
+      result.title = book.xpath('title').first.content
+      result.author = book.xpath('author//name').first.content
+      result.image_url = book.xpath('image_url').first.content
+      @results << result
+    end
+  end
+
   # GET /books/1
   # GET /books/1.json
   def show
@@ -41,6 +57,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
+    puts params[:book]
     @book = Book.new(book_params)
     @book.status = nil
     respond_to do |format|

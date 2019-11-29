@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Results Books</h1>
+<form action="/books/search">
+  <input name="q" type="text">
+  <button type="submit">Search</button>
+</form>
+<%= link_to 'Back', books_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Author</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @results.each do |book| %>
+      <tr>
+        <td><img src=<%= book.image_url %> alt=<%= book.title %>></td>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.genre %></td>
+        <td><%= render 'search_form', book: book %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= @xml %>
