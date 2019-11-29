@@ -7,7 +7,7 @@ class BooksTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit books_url
-    assert_selector "h1", text: "Books"
+    assert_selector "h1", text: "Unread Books"
   end
 
   test "creating a Book" do
@@ -27,6 +27,8 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "updating a Book" do
+    create_book
+
     visit books_url
     click_on "Edit", match: :first
 
@@ -43,11 +45,26 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "destroying a Book" do
+    create_book
+
     visit books_url
     page.accept_confirm do
       click_on "Destroy", match: :first
     end
 
     assert_text "Book was successfully destroyed"
+  end
+
+  def create_book
+    visit books_url
+    click_on "New Book"
+
+    fill_in "Author", with: @book.author
+    fill_in "Description", with: @book.description
+    fill_in "Genre", with: @book.genre
+    fill_in "Rating", with: @book.rating
+    fill_in "Review", with: @book.review
+    fill_in "Title", with: @book.title
+    click_on "Create Book"
   end
 end

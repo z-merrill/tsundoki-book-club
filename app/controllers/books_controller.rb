@@ -8,11 +8,15 @@ class BooksController < ApplicationController
   def index
     @unread_books = Book.status('UNREAD').sort_by(&:title)
     @unread_books.each do | book |
-      find_image(book)
+      if !book.title.nil? && !book.title.empty?
+        find_image(book)
+      end
     end 
     @read_books = Book.status('READ').sort_by(&:title)
     @read_books.each do | book |
-      find_image(book)
+      if !book.title.nil? && !book.title.empty?
+        find_image(book)
+      end
     end 
     @current_book = Book.status('READING')
   end
@@ -20,9 +24,9 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    response = RestClient.get('https://www.goodreads.com/search/index.xml?key=WxmoyITXL7QsiJuw0EQ&q=' + @book.title)
-    xml = Nokogiri::XML(response)
-    @image_url =  xml.xpath('//search//results//work//best_book//image_url').first.content
+    if !@book.title.nil? && !@book.title.empty?
+      find_image(@book)
+    end
   end
 
   # GET /books/new
@@ -38,7 +42,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-
+    @book.status = nil
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
