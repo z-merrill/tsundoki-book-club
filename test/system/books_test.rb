@@ -10,6 +10,19 @@ class BooksTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Unread Books"
   end
 
+  test "searching and selecting a book" do
+    visit books_url
+    fill_in "search_field", with: "Berta Isla"
+    click_on "Search"
+
+    assert_selector "h1", text: "Results Books"
+
+    click_on "Create Book", match: :first
+
+    assert_selector "#notice", text: "Book was successfully created."
+  end
+
+
   test "creating a Book" do
     visit books_url
     click_on "New Book"

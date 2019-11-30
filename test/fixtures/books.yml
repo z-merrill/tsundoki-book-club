@@ -7,6 +7,7 @@ one:
   description: MyText
   rating: 1.5
   review: MyText
+  status: UNREAD
 
 two:
   title: MyString
@@ -15,3 +16,40 @@ two:
   description: MyText
   rating: 1.5
   review: MyText
+  status: UNREAD
+
+three:
+  title: MyString
+  author: MyString
+  genre: MyString
+  description: MyText
+  rating: 1.5
+  review: MyText
+  status: UNREAD
+
+four:
+  title: Slaughterhouse-Five
+  author: MyString
+  genre: MyString
+  description: MyText
+  rating: 1.5
+  review: MyText
+  status: READING
+
+five:
+  title: MyString
+  author: MyString
+  genre: MyString
+  description: MyText
+  rating: 1.5
+  review: MyText
+  status: READ
+
+six:
+  title: MyString
+  author: MyString
+  genre: MyString
+  description: MyText
+  rating: 1.5
+  review: MyText
+  status: READ

@@ -12,13 +12,20 @@ class BooksController < ApplicationController
         find_image(book)
       end
     end 
+    
     @read_books = Book.status('READ').sort_by(&:title)
     @read_books.each do | book |
       if !book.title.nil? && !book.title.empty?
         find_image(book)
       end
     end 
-    @current_book = Book.status('READING')
+
+    @current_books = Book.status('READING').sort_by(&:title)
+    @current_books.each do | book |
+      if !book.title.nil? && !book.title.empty?
+        find_image(book)
+      end
+    end
   end
 
   # GET /books/search

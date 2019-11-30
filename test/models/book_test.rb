@@ -16,29 +16,21 @@ class BookTest < ActiveSupport::TestCase
     assert book.valid?
   end  
 
-  test "has a default status of unread before save" do
+  test "has a default status of unread after save" do
     book = Book.new(title: 'Berta Isla', author: 'Javier Marias')
     book.save
     assert book.status == 'UNREAD'
   end
 
   test "scope allows query by status" do
-    book = Book.new(title: 'Berta Isla', author: 'Javier Marias')
-    book.save
-    book = Book.new(title: 'The Watchmen', author: 'Alan Moore')
-    book.save
-
     results = Book.status('UNREAD')
 
-    assert results.size == 2
-
-    book.status = 'READ'
-    book.save
-
-    results = Book.status('UNREAD')
-    assert results.size == 1
+    assert results.size == 3
 
     results = Book.status('READ')
+    assert results.size == 2
+
+    results = Book.status('READING')
     assert results.size == 1
   end
 
